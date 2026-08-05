@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Dashboard — Artavita</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Imprima&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<header id="site-header">
+  <div class="wrap header-inner">
+    <a href="index.html" class="logo"><img class="logo-img" src="assets/logo-color.png" alt="Artavita"></a>
+    <nav class="primary-nav">
+      <a href="artworks.html">Discover</a>
+      <a href="index.html#exhibitions">Exhibitions</a>
+      <a href="index.html#contests">Contests</a>
+      <a href="artists.html">Artists &amp; Galleries</a>
+      <a href="index.html#for-artists">For Artists</a>
+      <a href="news-post.html">News</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn" title="Search" aria-label="Search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <a href="dashboard.html" class="signin-link" style="color:var(--accent-dark);">My Dashboard</a>
+      <a href="signin.html" class="btn btn-outline">Sign out</a>
+      <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="dash-shell">
+  <aside class="dash-sidebar">
+    <div class="dash-user">
+      <img src="https://picsum.photos/seed/carolhartman/100/100" alt="Carol Hartman">
+      <div><div class="name">Carol Hartman</div><div class="plan">Featured plan</div></div>
+    </div>
+    <nav class="dash-nav">
+      <a href="dashboard.html" class="active">📊 Overview</a>
+      <a href="artist-profile.html">🖼 My Portfolio</a>
+      <a href="contest-entry.html">🏆 Contest Entries</a>
+      <a href="index.html#exhibitions">🏛 Virtual Exhibitions</a>
+      <a href="pricing.html">💳 Billing &amp; Plan</a>
+      <a href="about.html">⚙ Account Settings</a>
+    </nav>
+  </aside>
+
+  <main class="dash-main">
+    <div class="dash-header">
+      <h1>Welcome back, Carol</h1>
+      <a href="artworks.html" class="btn btn-primary">+ Add artwork</a>
+    </div>
+
+    <div class="dash-stats">
+      <div class="dash-stat"><div class="num">34</div><div class="label">Artworks live</div></div>
+      <div class="dash-stat"><div class="num">1,208</div><div class="label">Followers</div></div>
+      <div class="dash-stat"><div class="num">3</div><div class="label">Active contest entries</div></div>
+      <div class="dash-stat"><div class="num">4,920</div><div class="label">Profile views (30d)</div></div>
+    </div>
+
+    <div class="section-head reveal in-view" style="margin-bottom:16px;">
+      <div><h2 style="font-size:20px;">Recent contest entries</h2></div>
+    </div>
+    <table class="dash-table">
+      <thead>
+        <tr><th>Artwork</th><th>Contest</th><th>Submitted</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Wildfire</td><td>Red Dot Miami — 76th Contest</td><td>Aug 2, 2026</td><td><span class="status-pill pending">Under review</span></td></tr>
+        <tr><td>Low Tide</td><td>Artist of the Year 2026</td><td>Jul 14, 2026</td><td><span class="status-pill live">Finalist</span></td></tr>
+        <tr><td>Ember Study No. 2</td><td>75th Artavita Contest</td><td>May 30, 2026</td><td><span class="status-pill draft">Not selected</span></td></tr>
+        <tr><td>Quiet Coast</td><td>—</td><td>—</td><td><span class="status-pill draft">Draft</span></td></tr>
+      </tbody>
+    </table>
+  </main>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img class="logo-img" src="assets/logo-white.png" alt="Artavita" style="height:26px;">
+        <p>A free global online gallery helping independent artists get discovered, exhibited, and collected.</p>
+        <div class="app-badges">
+          <div>App Store</div>
+          <div>Google Play</div>
+        </div>
+        <div class="social-row">
+          <a href="#" aria-label="Twitter">𝕏</a>
+          <a href="#" aria-label="Facebook">f</a>
+          <a href="#" aria-label="LinkedIn">in</a>
+          <a href="#" aria-label="Pinterest">p</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Discover</h5>
+        <a href="artworks.html">Artworks</a>
+        <a href="index.html#exhibitions">Virtual Exhibitions</a>
+        <a href="contest-entry.html">Artist Contests</a>
+        <a href="artists.html">Featured Artists</a>
+        <a href="artists.html">Featured Galleries</a>
+      </div>
+      <div class="footer-col">
+        <h5>For Artists</h5>
+        <a href="signin.html">Create a portfolio</a>
+        <a href="contest-entry.html">Enter a contest</a>
+        <a href="pricing.html">Plans &amp; pricing</a>
+        <a href="news-post.html">Artist news</a>
+      </div>
+      <div class="footer-col">
+        <h5>For Galleries</h5>
+        <a href="signin.html">Create a gallery profile</a>
+        <a href="about.html">Exhibit with Artavita</a>
+        <a href="pricing.html">Plans &amp; pricing</a>
+        <a href="news-post.html">Gallery news</a>
+      </div>
+      <div class="footer-col">
+        <h5>Support</h5>
+        <a href="about.html">About &amp; contact</a>
+        <a href="about.html#faq">FAQ</a>
+        <a href="dashboard.html">Account dashboard (demo)</a>
+        <a href="#">Terms &amp; conditions</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Artavita. All rights reserved.</span>
+      <span><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Sitemap</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/script.js"></script>
+</body>
+</html>

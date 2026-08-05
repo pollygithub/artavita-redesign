@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Enter the Contest — Artavita</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Imprima&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+<header id="site-header">
+  <div class="wrap header-inner">
+    <a href="index.html" class="logo"><img class="logo-img" src="assets/logo-color.png" alt="Artavita"></a>
+    <nav class="primary-nav">
+      <a href="artworks.html">Discover</a>
+      <a href="index.html#exhibitions">Exhibitions</a>
+      <a href="index.html#contests" style="color:var(--ink);">Contests</a>
+      <a href="artists.html">Artists &amp; Galleries</a>
+      <a href="index.html#for-artists">For Artists</a>
+      <a href="news-post.html">News</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn" title="Search" aria-label="Search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      </button>
+      <a href="signin.html" class="signin-link">Sign in</a>
+      <a href="signin.html" class="btn btn-primary">Join free</a>
+      <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<div class="page-header" style="text-align:center;">
+  <div class="wrap">
+    <div class="breadcrumb" style="justify-content:center;"><a href="index.html">Home</a><span>/</span><a href="index.html#contests">Contests</a><span>/</span>Enter</div>
+    <span class="eyebrow">Open Contest</span>
+    <h1>Exhibit free at Red Dot Miami</h1>
+  </div>
+</div>
+
+<div class="wizard-shell">
+  <div class="wrap">
+    <div class="wizard-steps">
+      <div class="wizard-step current"><div class="dot">1</div><div class="label">Artwork</div></div>
+      <div class="wizard-step"><div class="dot">2</div><div class="label">Category</div></div>
+      <div class="wizard-step"><div class="dot">3</div><div class="label">Upload</div></div>
+      <div class="wizard-step"><div class="dot">4</div><div class="label">Review &amp; Pay</div></div>
+    </div>
+
+    <div class="wizard-card">
+      <div class="wizard-panel">
+        <h2>Tell us about your artwork</h2>
+        <p>Step 1 of 4 — basic details about the piece you're entering.</p>
+        <div class="field"><label for="title">Artwork title</label><input type="text" id="title" placeholder="e.g. Wildfire"></div>
+        <div class="field"><label for="year">Year completed</label><input type="text" id="year" placeholder="2026"></div>
+        <div class="field"><label for="medium">Medium</label><input type="text" id="medium" placeholder="e.g. Oil on canvas"></div>
+        <div class="field"><label for="dims">Dimensions</label><input type="text" id="dims" placeholder="e.g. 24 x 30 in"></div>
+        <div class="wizard-actions">
+          <span></span>
+          <button class="btn btn-primary wizard-next">Continue <span class="arrow">→</span></button>
+        </div>
+      </div>
+
+      <div class="wizard-panel" style="display:none;">
+        <h2>Choose a category</h2>
+        <p>Step 2 of 4 — select the category that best fits your work.</p>
+        <div class="field">
+          <label for="cat">Category</label>
+          <select id="cat">
+            <option>Painting &amp; 2-dimensional mixed media</option>
+            <option>Sculpture &amp; 3-dimensional mixed media</option>
+            <option>Photography</option>
+            <option>Digital Art / AI</option>
+            <option>Collage</option>
+            <option>Ceramic Sculpture</option>
+            <option>Mosaic</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="field"><label for="notes">Artist statement (optional)</label><textarea id="notes" placeholder="A few sentences about this piece..."></textarea></div>
+        <div class="wizard-actions">
+          <button class="btn btn-outline wizard-back">Back</button>
+          <button class="btn btn-primary wizard-next">Continue <span class="arrow">→</span></button>
+        </div>
+      </div>
+
+      <div class="wizard-panel" style="display:none;">
+        <h2>Upload your image</h2>
+        <p>Step 3 of 4 — high-resolution JPG or PNG, up to 25MB.</p>
+        <div class="upload-dropzone">
+          <div style="font-size:28px;margin-bottom:8px;">⬆</div>
+          Drag &amp; drop your image here, or click to browse
+        </div>
+        <div class="wizard-actions">
+          <button class="btn btn-outline wizard-back">Back</button>
+          <button class="btn btn-primary wizard-next">Continue <span class="arrow">→</span></button>
+        </div>
+      </div>
+
+      <div class="wizard-panel" style="display:none;">
+        <h2>Review &amp; pay</h2>
+        <p>Step 4 of 4 — confirm your entry details.</p>
+        <div class="summary-row"><span>Artwork</span><span>Wildfire (2026)</span></div>
+        <div class="summary-row"><span>Category</span><span>Painting &amp; 2-dimensional mixed media</span></div>
+        <div class="summary-row"><span>Contest</span><span>Red Dot Miami — Dec 2026</span></div>
+        <div class="summary-row"><span>Entry fee</span><span>$15.00</span></div>
+        <div class="wizard-actions">
+          <button class="btn btn-outline wizard-back">Back</button>
+          <button class="btn btn-primary auth-submit" style="width:auto;" onclick="alert('This is a portfolio demo — no real payment is processed.')">Submit entry — $15.00</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img class="logo-img" src="assets/logo-white.png" alt="Artavita" style="height:26px;">
+        <p>A free global online gallery helping independent artists get discovered, exhibited, and collected.</p>
+        <div class="app-badges">
+          <div>App Store</div>
+          <div>Google Play</div>
+        </div>
+        <div class="social-row">
+          <a href="#" aria-label="Twitter">𝕏</a>
+          <a href="#" aria-label="Facebook">f</a>
+          <a href="#" aria-label="LinkedIn">in</a>
+          <a href="#" aria-label="Pinterest">p</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h5>Discover</h5>
+        <a href="artworks.html">Artworks</a>
+        <a href="index.html#exhibitions">Virtual Exhibitions</a>
+        <a href="contest-entry.html">Artist Contests</a>
+        <a href="artists.html">Featured Artists</a>
+        <a href="artists.html">Featured Galleries</a>
+      </div>
+      <div class="footer-col">
+        <h5>For Artists</h5>
+        <a href="signin.html">Create a portfolio</a>
+        <a href="contest-entry.html">Enter a contest</a>
+        <a href="pricing.html">Plans &amp; pricing</a>
+        <a href="news-post.html">Artist news</a>
+      </div>
+      <div class="footer-col">
+        <h5>For Galleries</h5>
+        <a href="signin.html">Create a gallery profile</a>
+        <a href="about.html">Exhibit with Artavita</a>
+        <a href="pricing.html">Plans &amp; pricing</a>
+        <a href="news-post.html">Gallery news</a>
+      </div>
+      <div class="footer-col">
+        <h5>Support</h5>
+        <a href="about.html">About &amp; contact</a>
+        <a href="about.html#faq">FAQ</a>
+        <a href="dashboard.html">Account dashboard (demo)</a>
+        <a href="#">Terms &amp; conditions</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Artavita. All rights reserved.</span>
+      <span><a href="#">Privacy</a><a href="#">Terms</a><a href="#">Sitemap</a></span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/script.js"></script>
+</body>
+</html>

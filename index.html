@@ -7,481 +7,29 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Imprima&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg:#FFFFFF;
-    --bg-alt:#F5F5F5;
-    --panel:#FFFFFF;
-    --ink:#111111;
-    --ink-body:#444444;
-    --ink-soft:#5A5A5A;
-    --ink-faint:#8B928F;
-    --accent:#2BB79A;
-    --accent-dark:#096B59;
-    --accent-tint:#DFF9F1;
-    --accent-tint2:#AFF7E8;
-    --dark-bg:#06231D;
-    --dark-bg2:#0B2E27;
-    --line:#E6E6E6;
-    --radius:14px;
-    --shadow:0 10px 30px -12px rgba(6,35,29,0.18);
-    --ease:cubic-bezier(.22,1,.36,1);
-    --maxw:1240px;
-  }
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  body{
-    margin:0;
-    background:var(--bg);
-    color:var(--ink-body);
-    font-family:'Inter','Helvetica Neue',Helvetica,Arial,sans-serif;
-    -webkit-font-smoothing:antialiased;
-    line-height:1.5;
-  }
-  h1,h2,h3,h4{
-    font-family:'Imprima','Helvetica Neue',Arial,sans-serif;
-    font-weight:400;
-    color:var(--ink);
-    margin:0;
-    line-height:1.14;
-    letter-spacing:-0.01em;
-  }
-  p{margin:0;}
-  a{color:inherit;text-decoration:none;}
-  img{max-width:100%;display:block;}
-  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px;}
-  .eyebrow{
-    font-size:12.5px;
-    letter-spacing:0.14em;
-    text-transform:uppercase;
-    color:var(--accent-dark);
-    font-weight:600;
-    font-family:'Inter',sans-serif;
-  }
-  ::selection{background:var(--accent-tint2);color:var(--dark-bg);}
-
-  /* ---------- reveal on scroll ---------- */
-  .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s var(--ease),transform .7s var(--ease);}
-  .reveal.in-view{opacity:1;transform:translateY(0);}
-  .stagger .reveal:nth-child(1){transition-delay:.02s;}
-  .stagger .reveal:nth-child(2){transition-delay:.09s;}
-  .stagger .reveal:nth-child(3){transition-delay:.16s;}
-  .stagger .reveal:nth-child(4){transition-delay:.23s;}
-  .stagger .reveal:nth-child(5){transition-delay:.30s;}
-  .stagger .reveal:nth-child(6){transition-delay:.37s;}
-  .stagger .reveal:nth-child(7){transition-delay:.44s;}
-  .stagger .reveal:nth-child(8){transition-delay:.51s;}
-
-  /* ---------- buttons ---------- */
-  .btn{
-    position:relative;
-    display:inline-flex;align-items:center;gap:8px;
-    padding:13px 26px;
-    border-radius:999px;
-    font-weight:600;
-    font-size:14.5px;
-    cursor:pointer;
-    border:1.5px solid transparent;
-    overflow:hidden;
-    isolation:isolate;
-    transition:transform .35s var(--ease), box-shadow .35s var(--ease), color .35s var(--ease), border-color .35s var(--ease);
-    white-space:nowrap;
-  }
-  .btn:hover{transform:translateY(-2px);}
-  .btn:active{transform:translateY(0);}
-  .btn::before{
-    content:"";position:absolute;inset:0;z-index:-1;
-    transform:scaleX(0);transform-origin:left;
-    transition:transform .45s var(--ease);
-  }
-  .btn:hover::before{transform:scaleX(1);}
-
-  .btn-primary{background:var(--accent-dark);color:#fff;}
-  .btn-primary::before{background:var(--accent);}
-  .btn-primary:hover{box-shadow:0 10px 24px -8px rgba(9,107,89,0.55);}
-
-  .btn-outline{background:transparent;color:var(--ink);border-color:var(--ink);}
-  .btn-outline::before{background:var(--ink);}
-  .btn-outline:hover{color:#fff;border-color:var(--ink);}
-
-  .btn-outline-light{background:transparent;color:#fff;border-color:rgba(255,255,255,0.45);}
-  .btn-outline-light::before{background:rgba(255,255,255,0.16);}
-  .btn-outline-light:hover{border-color:#fff;}
-
-  .btn-ghost{color:var(--accent-dark);font-weight:600;padding:0;border-radius:0;border:none;}
-  .btn-ghost::before{display:none;}
-  .btn-ghost span.arrow{display:inline-block;transition:transform .35s var(--ease);}
-  .btn-ghost:hover span.arrow{transform:translateX(6px);}
-  .btn-ghost:hover{transform:none;}
-  .btn-ghost{position:relative;}
-  .btn-ghost em{position:absolute;left:0;bottom:-3px;height:1.5px;width:100%;background:var(--accent-dark);transform:scaleX(0);transform-origin:right;transition:transform .35s var(--ease);}
-  .btn-ghost:hover em{transform:scaleX(1);transform-origin:left;}
-
-  /* ---------- Header ---------- */
-  header{
-    position:sticky;top:0;z-index:100;
-    background:rgba(255,255,255,0.9);
-    backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--line);
-    transition:height .3s var(--ease), box-shadow .3s var(--ease);
-  }
-  header.scrolled{box-shadow:0 6px 24px -14px rgba(6,35,29,0.25);}
-  .header-inner{
-    display:flex;align-items:center;justify-content:space-between;
-    height:84px;
-    transition:height .3s var(--ease);
-  }
-  header.scrolled .header-inner{height:66px;}
-  .logo-img{height:30px;width:auto;transition:height .3s var(--ease);}
-  header.scrolled .logo-img{height:24px;}
-  nav.primary-nav{display:flex;align-items:center;gap:30px;}
-  nav.primary-nav a{
-    position:relative;
-    font-size:14.5px;font-weight:500;color:var(--ink-soft);
-    padding:6px 0;
-  }
-  nav.primary-nav a::after{
-    content:"";position:absolute;left:0;bottom:0;height:2px;width:100%;
-    background:var(--accent);transform:scaleX(0);transform-origin:right;
-    transition:transform .3s var(--ease);
-  }
-  nav.primary-nav a:hover{color:var(--ink);}
-  nav.primary-nav a:hover::after{transform:scaleX(1);transform-origin:left;}
-  .header-actions{display:flex;align-items:center;gap:14px;}
-  .icon-btn{
-    width:38px;height:38px;border-radius:50%;
-    display:flex;align-items:center;justify-content:center;
-    border:1px solid var(--line);color:var(--ink-soft);
-    background:#fff;transition:border-color .3s var(--ease), color .3s var(--ease), transform .3s var(--ease);
-  }
-  .icon-btn:hover{border-color:var(--accent);color:var(--accent-dark);transform:translateY(-2px);}
-  .signin-link{font-size:14.5px;font-weight:600;color:var(--ink);position:relative;}
-  .signin-link::after{content:"";position:absolute;left:0;bottom:-3px;height:1.5px;width:100%;background:var(--ink);transform:scaleX(0);transition:transform .3s var(--ease);}
-  .signin-link:hover::after{transform:scaleX(1);}
-  .hamburger{display:none;background:none;border:none;cursor:pointer;padding:6px;}
-  .hamburger span{display:block;width:22px;height:2px;background:var(--ink);margin:5px 0;transition:transform .25s ease, opacity .25s ease;}
-
-  /* ---------- Hero ---------- */
-  .hero{padding:64px 0 56px;}
-  .hero-grid{display:grid;grid-template-columns:1.05fr 0.95fr;gap:56px;align-items:center;}
-  .hero h1{font-size:48px;margin:14px 0 20px;}
-  .hero h1 .grad{
-    background:linear-gradient(90deg,var(--accent-dark),var(--accent) 55%,#5fd6bd);
-    -webkit-background-clip:text;background-clip:text;color:transparent;
-  }
-  .hero p.lead{font-size:17.5px;color:var(--ink-soft);max-width:480px;margin-bottom:30px;}
-  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:26px;}
-  .hero-trust{font-size:13.5px;color:var(--ink-faint);}
-  .hero-trust b{color:var(--ink);}
-  .hero-collage{
-    display:grid;grid-template-columns:1.1fr 0.9fr;gap:14px;
-  }
-  .hero-collage .tall{grid-row:span 2;animation:float 6s ease-in-out infinite;}
-  .hero-collage .short:nth-of-type(2){animation:float 7s ease-in-out infinite .4s;}
-  .hero-collage .short:nth-of-type(3){animation:float 6.5s ease-in-out infinite .8s;}
-  @keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
-  .hero-collage figure{margin:0;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);height:100%;}
-  .hero-collage img{
-    width:100%;height:100%;object-fit:cover;
-    transition:transform .6s var(--ease);
-  }
-  .hero-collage figure:hover img{transform:scale(1.07);}
-  .hero-collage .tall figure{aspect-ratio:4/5.2;}
-  .hero-collage .short figure{aspect-ratio:4/3.1;}
-
-  /* ---------- Stats bar ---------- */
-  .stats-bar{
-    background:var(--dark-bg);color:#fff;padding:32px 0;
-  }
-  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;text-align:center;}
-  .stats-grid .num{font-family:'Imprima',sans-serif;font-size:32px;color:#fff;}
-  .stats-grid .label{font-size:12.5px;color:#9FD8CB;letter-spacing:0.05em;text-transform:uppercase;margin-top:4px;}
-  .fairs-row{
-    display:flex;justify-content:center;gap:40px;flex-wrap:wrap;
-    margin-top:26px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.12);
-    font-family:'Imprima',sans-serif;font-size:15px;color:#6FAE9F;letter-spacing:0.02em;
-  }
-
-  /* ---------- Section shell ---------- */
-  section{padding:84px 0;}
-  .section-head{
-    display:flex;align-items:flex-end;justify-content:space-between;
-    margin-bottom:40px;gap:20px;flex-wrap:wrap;
-  }
-  .section-head h2{font-size:34px;}
-  .section-head p{color:var(--ink-soft);margin-top:8px;max-width:520px;}
-  .alt{background:var(--bg-alt);}
-
-  /* ---------- How it works ---------- */
-  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
-  .step-card{
-    background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:32px 28px;
-    transition:transform .4s var(--ease), box-shadow .4s var(--ease), border-color .4s var(--ease);
-  }
-  .step-card:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:var(--accent-tint2);}
-  .step-num{
-    width:38px;height:38px;border-radius:50%;background:var(--accent-tint);color:var(--accent-dark);
-    display:flex;align-items:center;justify-content:center;font-family:'Imprima',sans-serif;font-weight:400;margin-bottom:18px;
-    transition:background .4s var(--ease), color .4s var(--ease);
-  }
-  .step-card:hover .step-num{background:var(--accent-dark);color:#fff;}
-  .step-card h3{font-size:19px;margin-bottom:8px;font-weight:400;}
-  .step-card p{color:var(--ink-soft);font-size:14.5px;}
-
-  /* ---------- Artwork grid ---------- */
-  .art-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
-  .art-card{
-    position:relative;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);cursor:pointer;
-    transition:transform .5s var(--ease);
-  }
-  .art-card:hover{transform:translateY(-6px);}
-  .art-card img{aspect-ratio:4/5;object-fit:cover;transition:transform .7s var(--ease), filter .5s ease;}
-  .art-card:hover img{transform:scale(1.09);filter:saturate(1.1);}
-  .art-card .tint{
-    position:absolute;inset:0;background:linear-gradient(135deg,rgba(9,107,89,0.35),rgba(43,183,154,0.15));
-    opacity:0;transition:opacity .4s ease;
-  }
-  .art-card:hover .tint{opacity:1;}
-  .art-card .view-icon{
-    position:absolute;top:50%;left:50%;width:46px;height:46px;border-radius:50%;
-    background:rgba(255,255,255,0.92);color:var(--accent-dark);
-    display:flex;align-items:center;justify-content:center;
-    transform:translate(-50%,-50%) scale(0.6);opacity:0;
-    transition:transform .4s var(--ease), opacity .4s var(--ease);
-  }
-  .art-card:hover .view-icon{opacity:1;transform:translate(-50%,-50%) scale(1);}
-  .art-overlay{
-    position:absolute;left:0;right:0;bottom:0;padding:18px 16px 14px;
-    background:linear-gradient(180deg,transparent, rgba(6,20,17,0.88));
-    color:#fff;
-  }
-  .art-overlay .title{font-family:'Imprima',sans-serif;font-size:15.5px;}
-  .art-overlay .artist{font-size:12.5px;color:#CDECE4;margin-top:2px;}
-  .grid-footer{text-align:center;margin-top:40px;}
-
-  /* ---------- Video section ---------- */
-  .video-shell{
-    position:relative;border-radius:20px;overflow:hidden;box-shadow:var(--shadow);
-    background:var(--dark-bg);aspect-ratio:16/8.2;max-width:920px;margin:0 auto;
-  }
-  .video-shell video{width:100%;height:100%;object-fit:cover;display:block;}
-  .video-cover{
-    position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
-    background:linear-gradient(135deg,rgba(6,35,29,0.55),rgba(9,107,89,0.35));
-    cursor:pointer;transition:opacity .5s ease;
-  }
-  .video-cover.hide{opacity:0;pointer-events:none;}
-  .play-btn{
-    width:84px;height:84px;border-radius:50%;background:#fff;color:var(--accent-dark);
-    display:flex;align-items:center;justify-content:center;
-    box-shadow:0 0 0 0 rgba(255,255,255,0.55);
-    animation:pulse 2.4s ease-in-out infinite;
-    transition:transform .3s var(--ease);
-  }
-  .video-cover:hover .play-btn{transform:scale(1.08);}
-  @keyframes pulse{
-    0%{box-shadow:0 0 0 0 rgba(255,255,255,0.45);}
-    70%{box-shadow:0 0 0 22px rgba(255,255,255,0);}
-    100%{box-shadow:0 0 0 0 rgba(255,255,255,0);}
-  }
-
-  /* ---------- Contest spotlight ---------- */
-  .contest-card{
-    background:linear-gradient(120deg,var(--dark-bg),var(--dark-bg2));
-    border-radius:20px;color:#fff;
-    display:grid;grid-template-columns:1.1fr 0.9fr;overflow:hidden;
-  }
-  .contest-copy{padding:52px 48px;}
-  .contest-badge{
-    display:inline-block;background:rgba(255,255,255,0.12);color:var(--accent-tint2);
-    padding:6px 14px;border-radius:999px;font-size:12.5px;font-weight:600;letter-spacing:.04em;margin-bottom:18px;
-    animation:badgepulse 2.6s ease-in-out infinite;
-  }
-  @keyframes badgepulse{0%,100%{background:rgba(255,255,255,0.12);}50%{background:rgba(175,247,232,0.22);}}
-  .contest-copy h2{color:#fff;font-size:30px;margin-bottom:14px;}
-  .contest-copy p{color:#BFE3DA;font-size:15px;margin-bottom:24px;max-width:440px;}
-  .contest-meta{display:flex;gap:28px;margin-bottom:28px;flex-wrap:wrap;}
-  .contest-meta div span{display:block;font-size:12px;color:#6FAE9F;text-transform:uppercase;letter-spacing:.05em;}
-  .contest-meta div b{font-family:'Imprima',sans-serif;font-size:18px;font-weight:400;}
-  .contest-ctas{display:flex;gap:14px;flex-wrap:wrap;}
-  .contest-entries{
-    display:grid;grid-template-columns:repeat(2,1fr);gap:2px;
-  }
-  .contest-entries a{overflow:hidden;display:block;}
-  .contest-entries img{width:100%;height:100%;object-fit:cover;aspect-ratio:1/1;transition:transform .6s var(--ease);}
-  .contest-entries a:hover img{transform:scale(1.12);}
-
-  /* ---------- Exhibitions carousel ---------- */
-  .carousel{display:flex;gap:22px;overflow-x:auto;padding-bottom:12px;scroll-snap-type:x mandatory;}
-  .carousel::-webkit-scrollbar{height:6px;}
-  .carousel::-webkit-scrollbar-thumb{background:var(--line);border-radius:10px;}
-  .exhibit-card{
-    flex:0 0 300px;scroll-snap-align:start;
-    background:var(--panel);border-radius:var(--radius);overflow:hidden;border:1px solid var(--line);
-    transition:transform .4s var(--ease), box-shadow .4s var(--ease);
-  }
-  .exhibit-card:hover{transform:translateY(-6px);box-shadow:var(--shadow);}
-  .exhibit-card .imgwrap{overflow:hidden;}
-  .exhibit-card img{aspect-ratio:4/3;object-fit:cover;transition:transform .6s var(--ease);}
-  .exhibit-card:hover img{transform:scale(1.08);}
-  .exhibit-info{padding:16px 18px;}
-  .exhibit-info .tag{font-size:11.5px;color:var(--accent-dark);font-weight:600;text-transform:uppercase;letter-spacing:.05em;}
-  .exhibit-info h4{font-size:16.5px;margin:6px 0 4px;font-weight:400;font-family:'Imprima',sans-serif;}
-  .exhibit-info p{font-size:13px;color:var(--ink-soft);}
-  .exhibit-cta{
-    flex:0 0 300px;scroll-snap-align:start;
-    border:1.5px dashed var(--accent);border-radius:var(--radius);
-    display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
-    padding:24px;gap:12px;color:var(--ink-soft);background:var(--accent-tint);
-    transition:background .4s ease;
-  }
-  .exhibit-cta:hover{background:var(--accent-tint2);}
-
-  /* ---------- Artists / Galleries ---------- */
-  .people-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:18px;}
-  .people-card{text-align:center;}
-  .people-card .avatar{
-    position:relative;width:100%;aspect-ratio:1/1;border-radius:50%;overflow:hidden;
-    border:3px solid #fff;box-shadow:var(--shadow);margin-bottom:12px;
-    transition:transform .4s var(--ease);
-  }
-  .people-card:hover .avatar{transform:translateY(-6px);}
-  .people-card img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease);}
-  .people-card:hover img{transform:scale(1.12);}
-  .people-card h4{font-size:14px;font-weight:600;font-family:'Inter',sans-serif;}
-  .people-card p{font-size:12.5px;color:var(--ink-faint);margin-top:2px;}
-
-  /* ---------- Dual CTA ---------- */
-  .dual-cta{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
-  .cta-panel{
-    border-radius:20px;padding:44px 40px;position:relative;overflow:hidden;
-    transition:transform .4s var(--ease);
-  }
-  .cta-panel:hover{transform:translateY(-4px);}
-  .cta-panel.artist{background:var(--dark-bg);color:#fff;}
-  .cta-panel.gallery{background:var(--accent-tint);color:var(--ink);}
-  .cta-panel h3{font-size:26px;margin-bottom:12px;font-weight:400;}
-  .cta-panel.artist h3{color:#fff;}
-  .cta-panel p{font-size:14.5px;margin-bottom:24px;max-width:360px;}
-  .cta-panel.artist p{color:#BFE3DA;}
-  .cta-panel.gallery p{color:var(--ink-soft);}
-  .cta-row{display:flex;gap:14px;flex-wrap:wrap;}
-
-  /* ---------- News ---------- */
-  .news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;}
-  .news-card{
-    background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
-    transition:transform .4s var(--ease), box-shadow .4s var(--ease);
-  }
-  .news-card:hover{transform:translateY(-6px);box-shadow:var(--shadow);}
-  .news-card .imgwrap{overflow:hidden;}
-  .news-card img{aspect-ratio:16/10;object-fit:cover;transition:transform .6s var(--ease);}
-  .news-card:hover img{transform:scale(1.08);}
-  .news-body{padding:20px;}
-  .news-body .tag{font-size:11.5px;color:var(--accent-dark);text-transform:uppercase;font-weight:600;letter-spacing:.05em;}
-  .news-body h4{font-family:'Imprima',sans-serif;font-size:16.5px;margin:8px 0 6px;font-weight:400;}
-  .news-body p{font-size:13.5px;color:var(--ink-soft);}
-
-  /* ---------- Newsletter ---------- */
-  .newsletter{
-    background:var(--dark-bg);color:#fff;border-radius:20px;
-    padding:52px 48px;display:flex;align-items:center;justify-content:space-between;gap:30px;flex-wrap:wrap;
-  }
-  .newsletter h3{color:#fff;font-size:26px;max-width:380px;font-weight:400;}
-  .newsletter p{color:#9FD8CB;margin-top:8px;font-size:14px;}
-  .newsletter form{display:flex;gap:10px;flex-wrap:wrap;}
-  .newsletter input{
-    padding:13px 18px;border-radius:999px;border:1px solid #234A41;background:#0E332B;color:#fff;min-width:240px;font-family:inherit;
-    transition:border-color .3s ease;
-  }
-  .newsletter input:focus{outline:none;border-color:var(--accent);}
-  .newsletter input::placeholder{color:#6FAE9F;}
-
-  /* ---------- Footer ---------- */
-  footer{background:#050E0C;color:#8FB3AA;padding:64px 0 28px;font-size:13.5px;}
-  .footer-grid{display:grid;grid-template-columns:1.3fr repeat(4,1fr);gap:32px;margin-bottom:48px;}
-  .footer-brand p{margin-top:14px;color:#6C8C84;max-width:260px;}
-  .footer-col h5{color:#fff;font-size:13px;text-transform:uppercase;letter-spacing:.06em;margin-bottom:16px;font-weight:600;font-family:'Inter',sans-serif;}
-  .footer-col a{display:block;color:#8FB3AA;margin-bottom:10px;position:relative;width:fit-content;transition:color .3s ease;}
-  .footer-col a:hover{color:#fff;}
-  .app-badges{display:flex;gap:10px;margin-top:16px;}
-  .app-badges div{border:1px solid #1C3830;border-radius:8px;padding:8px 12px;font-size:11.5px;color:#8FB3AA;transition:border-color .3s ease,color .3s ease;}
-  .app-badges div:hover{border-color:var(--accent);color:#fff;}
-  .social-row{display:flex;gap:12px;margin-top:18px;}
-  .social-row a{
-    width:34px;height:34px;border-radius:50%;border:1px solid #1C3830;
-    display:flex;align-items:center;justify-content:center;font-size:13px;
-    transition:border-color .3s ease,background .3s ease,transform .3s ease;
-  }
-  .social-row a:hover{border-color:var(--accent);background:var(--accent-dark);transform:translateY(-3px);}
-  .footer-bottom{
-    border-top:1px solid #142622;padding-top:24px;
-    display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;color:#4E6961;font-size:12.5px;
-  }
-  .footer-bottom a{color:#4E6961;margin-left:16px;}
-  .footer-bottom a:hover{color:#fff;}
-
-  /* ---------- Mobile ---------- */
-  @media (max-width:1024px){
-    .hero-grid{grid-template-columns:1fr;}
-    .hero-collage{order:-1;}
-    .art-grid{grid-template-columns:repeat(3,1fr);}
-    .people-grid{grid-template-columns:repeat(4,1fr);}
-    .footer-grid{grid-template-columns:1fr 1fr;}
-    .stats-grid{grid-template-columns:repeat(4,1fr);}
-  }
-  @media (max-width:860px){
-    nav.primary-nav{display:none;}
-    .hamburger{display:block;}
-    .contest-card{grid-template-columns:1fr;}
-    .contest-entries{display:none;}
-    .dual-cta{grid-template-columns:1fr;}
-    .steps{grid-template-columns:1fr;}
-    .header-actions .icon-btn,
-    .header-actions .signin-link{display:none;}
-    .header-actions{gap:10px;}
-  }
-  @media (max-width:640px){
-    .wrap{padding:0 20px;}
-    .hero h1{font-size:33px;}
-    .art-grid{grid-template-columns:repeat(2,1fr);}
-    .people-grid{grid-template-columns:repeat(3,1fr);}
-    .stats-grid{grid-template-columns:repeat(2,1fr);}
-    section{padding:56px 0;}
-    .section-head h2{font-size:26px;}
-    .footer-grid{grid-template-columns:1fr 1fr;gap:28px;}
-    .newsletter{padding:36px 26px;}
-    .contest-copy{padding:34px 26px;}
-    .video-shell{aspect-ratio:16/12;}
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    *{animation-duration:0.001ms !important;animation-iteration-count:1 !important;transition-duration:0.001ms !important;}
-    .reveal{opacity:1;transform:none;}
-  }
-</style>
+<link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
 
 <header id="site-header">
   <div class="wrap header-inner">
-    <a href="#" class="logo">
-      <img class="logo-img" src="data:image/png;base64,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" alt="Artavita">
+    <a href="index.html" class="logo">
+      <img class="logo-img" src="assets/logo-color.png" alt="Artavita">
     </a>
     <nav class="primary-nav">
-      <a href="#discover">Discover</a>
-      <a href="#exhibitions">Exhibitions</a>
-      <a href="#contests">Contests</a>
-      <a href="#artists">Artists &amp; Galleries</a>
-      <a href="#for-artists">For Artists</a>
-      <a href="#news">News</a>
+      <a href="artworks.html">Discover</a>
+      <a href="index.html#exhibitions">Exhibitions</a>
+      <a href="index.html#contests">Contests</a>
+      <a href="artists.html">Artists &amp; Galleries</a>
+      <a href="index.html#for-artists">For Artists</a>
+      <a href="news-post.html">News</a>
     </nav>
     <div class="header-actions">
       <button class="icon-btn" title="Search" aria-label="Search">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       </button>
-      <a href="#" class="signin-link">Sign in</a>
-      <a href="#" class="btn btn-primary">Join free</a>
+      <a href="signin.html" class="signin-link">Sign in</a>
+      <a href="signin.html" class="btn btn-primary">Join free</a>
       <button class="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
   </div>
@@ -494,8 +42,8 @@
       <h1>Where independent artists get <span class="grad">discovered</span>.</h1>
       <p class="lead">Build a free portfolio, enter juried contests judged by working curators, and win real exhibitions at Artexpo New York, Red Dot Miami and more &mdash; no gallery required.</p>
       <div class="hero-ctas">
-        <a href="#" class="btn btn-primary">I'm an artist &mdash; start free</a>
-        <a href="#discover" class="btn btn-outline">Browse artwork</a>
+        <a href="signin.html" class="btn btn-primary">I'm an artist &mdash; start free</a>
+        <a href="artworks.html" class="btn btn-outline">Browse artwork</a>
       </div>
       <p class="hero-trust"><b>12,400+</b> artists &nbsp;·&nbsp; <b>90</b> countries &nbsp;·&nbsp; <b>75</b> juried contests run</p>
     </div>
@@ -557,17 +105,17 @@
         <h2 style="margin-top:8px;">This week's selection</h2>
         <p>A curated edit of work from artists currently exhibiting on Artavita.</p>
       </div>
-      <a href="#" class="btn btn-outline">View all artworks</a>
+      <a href="artworks.html" class="btn btn-outline">View all artworks</a>
     </div>
     <div class="art-grid stagger">
-      <div class="art-card reveal"><img src="https://picsum.photos/seed/art1/500/620" alt="Wildfire by Carol Hartman"><div class="tint"></div><div class="view-icon">＋</div><div class="art-overlay"><div class="title">Wildfire</div><div class="artist">Carol Hartman</div></div></div>
-      <div class="art-card reveal"><img src="https://picsum.photos/seed/art2/500/620" alt="Divine Squiggle by Liz Lucy Robillard"><div class="tint"></div><div class="view-icon">＋</div><div class="art-overlay"><div class="title">Divine Squiggle</div><div class="artist">Liz Lucy Robillard</div></div></div>
-      <div class="art-card reveal"><img src="https://picsum.photos/seed/art3/500/620" alt="The Cowboy of 2023 by Mihaela Bobirnac"><div class="tint"></div><div class="view-icon">＋</div><div class="art-overlay"><div class="title">The Cowboy of 2023</div><div class="artist">Mihaela Bobirnac</div></div></div>
-      <div class="art-card reveal"><img src="https://picsum.photos/seed/art4/500/620" alt="Kun by Uzma Nomani"><div class="tint"></div><div class="view-icon">＋</div><div class="art-overlay"><div class="title">Kun</div><div class="artist">Uzma Nomani</div></div></div>
-      <div class="art-card reveal"><img src="https://picsum.photos/seed/art5/500/620" alt="Autumn Rush by featured gallery artist"><div class="tint"></div><div class="view-icon">＋</div><div class="art-overlay"><div class="title">Autumn Rush #3</div><div class="artist">Featured Gallery</div></div></div>
-      <div class="art-card reveal"><img src="https://picsum.photos/seed/art6/500/620" alt="Petaluma Opulence"><div class="tint"></div><div class="view-icon">＋</div><div class="art-overlay"><div class="title">Petaluma Opulence</div><div class="artist">Studio Selection</div></div></div>
-      <div class="art-card reveal"><img src="https://picsum.photos/seed/art7/500/620" alt="Self Portrait"><div class="tint"></div><div class="view-icon">＋</div><div class="art-overlay"><div class="title">Self Portrait with Pearl Earring</div><div class="artist">Alessandra Marruchi</div></div></div>
-      <div class="art-card reveal"><img src="https://picsum.photos/seed/art8/500/620" alt="Ascension"><div class="tint"></div><div class="view-icon">＋</div><div class="art-overlay"><div class="title">Ascension</div><div class="artist">William T. Moore III</div></div></div>
+      <a href="artwork-detail.html" class="art-card reveal"><img src="https://picsum.photos/seed/art1/500/620" alt="Wildfire by Carol Hartman"><div class="tint"></div><div class="view-icon">＋</div><div class="art-overlay"><div class="title">Wildfire</div><div class="artist">Carol Hartman</div></div></a>
+      <a href="artwork-detail.html" class="art-card reveal"><img src="https://picsum.photos/seed/art2/500/620" alt="Divine Squiggle by Liz Lucy Robillard"><div class="tint"></div><div class="view-icon">＋</div><div class="art-overlay"><div class="title">Divine Squiggle</div><div class="artist">Liz Lucy Robillard</div></div></a>
+      <a href="artwork-detail.html" class="art-card reveal"><img src="https://picsum.photos/seed/art3/500/620" alt="The Cowboy of 2023 by Mihaela Bobirnac"><div class="tint"></div><div class="view-icon">＋</div><div class="art-overlay"><div class="title">The Cowboy of 2023</div><div class="artist">Mihaela Bobirnac</div></div></a>
+      <a href="artwork-detail.html" class="art-card reveal"><img src="https://picsum.photos/seed/art4/500/620" alt="Kun by Uzma Nomani"><div class="tint"></div><div class="view-icon">＋</div><div class="art-overlay"><div class="title">Kun</div><div class="artist">Uzma Nomani</div></div></a>
+      <a href="artwork-detail.html" class="art-card reveal"><img src="https://picsum.photos/seed/art5/500/620" alt="Autumn Rush by featured gallery artist"><div class="tint"></div><div class="view-icon">＋</div><div class="art-overlay"><div class="title">Autumn Rush #3</div><div class="artist">Featured Gallery</div></div></a>
+      <a href="artwork-detail.html" class="art-card reveal"><img src="https://picsum.photos/seed/art6/500/620" alt="Petaluma Opulence"><div class="tint"></div><div class="view-icon">＋</div><div class="art-overlay"><div class="title">Petaluma Opulence</div><div class="artist">Studio Selection</div></div></a>
+      <a href="artwork-detail.html" class="art-card reveal"><img src="https://picsum.photos/seed/art7/500/620" alt="Self Portrait"><div class="tint"></div><div class="view-icon">＋</div><div class="art-overlay"><div class="title">Self Portrait with Pearl Earring</div><div class="artist">Alessandra Marruchi</div></div></a>
+      <a href="artwork-detail.html" class="art-card reveal"><img src="https://picsum.photos/seed/art8/500/620" alt="Ascension"><div class="tint"></div><div class="view-icon">＋</div><div class="art-overlay"><div class="title">Ascension</div><div class="artist">William T. Moore III</div></div></a>
     </div>
   </div>
 </section>
@@ -607,15 +155,15 @@
           <div><span>Prizes</span><b>3 free exhibits</b></div>
         </div>
         <div class="contest-ctas">
-          <a href="#" class="btn btn-primary">Enter this contest</a>
-          <a href="#" class="btn btn-outline-light">View past winners</a>
+          <a href="contest-entry.html" class="btn btn-primary">Enter this contest</a>
+          <a href="artists.html" class="btn btn-outline-light">View past winners</a>
         </div>
       </div>
       <div class="contest-entries">
-        <a href="#"><img src="https://picsum.photos/seed/entry1/300/300" alt="Contest entry"></a>
-        <a href="#"><img src="https://picsum.photos/seed/entry2/300/300" alt="Contest entry"></a>
-        <a href="#"><img src="https://picsum.photos/seed/entry3/300/300" alt="Contest entry"></a>
-        <a href="#"><img src="https://picsum.photos/seed/entry4/300/300" alt="Contest entry"></a>
+        <a href="artworks.html"><img src="https://picsum.photos/seed/entry1/300/300" alt="Contest entry"></a>
+        <a href="artworks.html"><img src="https://picsum.photos/seed/entry2/300/300" alt="Contest entry"></a>
+        <a href="artworks.html"><img src="https://picsum.photos/seed/entry3/300/300" alt="Contest entry"></a>
+        <a href="artworks.html"><img src="https://picsum.photos/seed/entry4/300/300" alt="Contest entry"></a>
       </div>
     </div>
   </div>
@@ -629,7 +177,7 @@
         <h2 style="margin-top:8px;">Step inside a gallery from anywhere</h2>
         <p>Browse immersive virtual exhibitions, or build your own in the free Artavita Space app.</p>
       </div>
-      <a href="#" class="btn btn-outline">View all exhibitions</a>
+      <a href="artworks.html" class="btn btn-outline">View all exhibitions</a>
     </div>
     <div class="carousel">
       <div class="exhibit-card">
@@ -651,7 +199,7 @@
       <div class="exhibit-cta">
         <h4 style="font-family:'Imprima',sans-serif;font-size:17px;font-weight:400;">Build your own</h4>
         <p style="font-size:13px;">Free with the Artavita Space app on iOS, Android, Mac and Web.</p>
-        <a href="#" class="btn btn-primary" style="padding:10px 18px;">Create a virtual exhibition</a>
+        <a href="signin.html" class="btn btn-primary" style="padding:10px 18px;">Create a virtual exhibition</a>
       </div>
     </div>
   </div>
@@ -664,15 +212,15 @@
         <span class="eyebrow">Community</span>
         <h2 style="margin-top:8px;">Featured artists &amp; galleries</h2>
       </div>
-      <a href="#" class="btn btn-outline">See all profiles</a>
+      <a href="artists.html" class="btn btn-outline">See all profiles</a>
     </div>
     <div class="people-grid stagger">
-      <div class="people-card reveal"><div class="avatar"><img src="https://picsum.photos/seed/p1/200/200" alt="Carol Hartman"></div><h4>Carol Hartman</h4><p>Painter</p></div>
-      <div class="people-card reveal"><div class="avatar"><img src="https://picsum.photos/seed/p2/200/200" alt="Uzma Nomani"></div><h4>Uzma Nomani</h4><p>Mixed media</p></div>
-      <div class="people-card reveal"><div class="avatar"><img src="https://picsum.photos/seed/p3/200/200" alt="Deborah Levy"></div><h4>Deborah Levy</h4><p>Photography</p></div>
-      <div class="people-card reveal"><div class="avatar"><img src="https://picsum.photos/seed/p4/200/200" alt="Les Schmidt"></div><h4>Les Schmidt</h4><p>Sculpture</p></div>
-      <div class="people-card reveal"><div class="avatar"><img src="https://picsum.photos/seed/p5/200/200" alt="Liz Lucy Robillard"></div><h4>Liz Lucy Robillard</h4><p>Abstract</p></div>
-      <div class="people-card reveal"><div class="avatar"><img src="https://picsum.photos/seed/p6/200/200" alt="Featured Gallery"></div><h4>Stellar Fine Art</h4><p>Gallery · NYC</p></div>
+      <a href="artist-profile.html" class="people-card reveal"><div class="avatar"><img src="https://picsum.photos/seed/p1/200/200" alt="Carol Hartman"></div><h4>Carol Hartman</h4><p>Painter</p></a>
+      <a href="artist-profile.html" class="people-card reveal"><div class="avatar"><img src="https://picsum.photos/seed/p2/200/200" alt="Uzma Nomani"></div><h4>Uzma Nomani</h4><p>Mixed media</p></a>
+      <a href="artist-profile.html" class="people-card reveal"><div class="avatar"><img src="https://picsum.photos/seed/p3/200/200" alt="Deborah Levy"></div><h4>Deborah Levy</h4><p>Photography</p></a>
+      <a href="artist-profile.html" class="people-card reveal"><div class="avatar"><img src="https://picsum.photos/seed/p4/200/200" alt="Les Schmidt"></div><h4>Les Schmidt</h4><p>Sculpture</p></a>
+      <a href="artist-profile.html" class="people-card reveal"><div class="avatar"><img src="https://picsum.photos/seed/p5/200/200" alt="Liz Lucy Robillard"></div><h4>Liz Lucy Robillard</h4><p>Abstract</p></a>
+      <a href="artist-profile.html" class="people-card reveal"><div class="avatar"><img src="https://picsum.photos/seed/p6/200/200" alt="Featured Gallery"></div><h4>Stellar Fine Art</h4><p>Gallery · NYC</p></a>
     </div>
   </div>
 </section>
@@ -685,8 +233,8 @@
         <h3>Show your work to a global audience</h3>
         <p>Free portfolio, contest entries, and gallery listing. Upgrade anytime for more exposure.</p>
         <div class="cta-row">
-          <a href="#" class="btn btn-primary">Create artist profile</a>
-          <a href="#" class="btn btn-outline-light">Plans &amp; pricing</a>
+          <a href="signin.html" class="btn btn-primary">Create artist profile</a>
+          <a href="pricing.html" class="btn btn-outline-light">Plans &amp; pricing</a>
         </div>
       </div>
       <div class="cta-panel gallery reveal">
@@ -694,8 +242,8 @@
         <h3>List your gallery and reach new collectors</h3>
         <p>Showcase your program, promote exhibitions, and connect with our global artist community.</p>
         <div class="cta-row">
-          <a href="#" class="btn btn-primary">Create gallery profile</a>
-          <a href="#" class="btn btn-outline">Plans &amp; pricing</a>
+          <a href="signin.html" class="btn btn-primary">Create gallery profile</a>
+          <a href="pricing.html" class="btn btn-outline">Plans &amp; pricing</a>
         </div>
       </div>
     </div>
@@ -709,7 +257,7 @@
         <span class="eyebrow">Latest</span>
         <h2 style="margin-top:8px;">Artist &amp; gallery news</h2>
       </div>
-      <a href="#" class="btn btn-outline">Read all news</a>
+      <a href="news-post.html" class="btn btn-outline">Read all news</a>
     </div>
     <div class="news-grid stagger">
       <div class="news-card reveal">
@@ -747,7 +295,7 @@
   <div class="wrap">
     <div class="footer-grid">
       <div class="footer-brand">
-        <img class="logo-img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJMAAAAvCAYAAADn7fgbAAAE5UlEQVR4nO2cPYhdRRTH/+cmGg2ubgQDGpAFwULQNCkTbWKXlTRmURFXxEQMaIqNWOWjkETCNnamCaQwRVIIgo0Wxo9CBFm10moFt7LY1fhB/Mjf4s173Hf33jvf857s+TXZfXNmzjn/mXdn7rl3AyiKoiiKoiiKomxVSFYkt086DuV/DMkZkisc58ik4/JBJh1AHyQfBvBgR/OdAD4RkRsFQ8oCyRkAv3Y0L4vIUs12S2iSHJLr7OfMpGNMAcnrljx31WynVpNqUo4d+dHS/nuRKPKzZmm/p/bz1Goy7Ytpq/CIpf3vIlFEootpOvjF0v5XkSgi0cU0HRzuabsoIj+XCiQGXUxTgIisA7gbwKeNpgUROTaBkIJwLo6RrC+8SkT+SRmIGb8CcAsARYQO3aIOm7lz8sHczj+RYKhgTWL16F1M5pb0PICjLW0A8A2AJRH52MdpY5x5AO8AmOsYv48Fkh8CuB0AROQHB39ROZHcB+BlAG21nAcAnBSRtZr9PIBDHfYzAF4BcBrA/T1jHvOoHXlpkn2OTUn/A0s9o8l+Tx+7HMZsVoRtdG7bqXIiud/S53rNVlxidrCZq42ZRBMWmGOQ3OPpoM57jj72OY6XSrikOTn02WHs5i12R+i24OZqvqM1YaY5rhpOHgXwk8uC6OAZkit9BhxcVr+K8OFFppwWLH1eMv9etthdDYoogpxzPFpMHHybvo1wMmQvycWe9vcT+HAiY07XLPZvcfAMbbbH5qzjTUYycs9x/cpkE8iHSyQ3PUQmeR+AxxP6sZElJxG5BWC5x3YWwPeW8c4lisuHrHNcAaOt51BCR+gYbzGxj04K5HQqYpwrInIzNhgfSszx8Mr0emInALDU8tlzGfx0kTUnEfkDm4uMruSIbRI+x+bYdzEtA3jR0TZ0O9uAvb7kQomcXnAPZ8TqhB6PZNdju7l1nHXouHsoAsnLAP61dSBZmfPFENsDzQ0Rqb+7s2KzB/A0gHsB/Dn0VSonEVklueHoa8hTHrYhbKChSbE5pludY7FlEFvxjqzVOIyfdYv9fMOHraayKa6SOXn0GREY61yMJo4+ovVwfdD7UctnvluRwP7t+NpzzBOe9nVS5AQR+dzD3FafSsGJwH7RelRwew+87c7lNx9HAFxqKrc1fv/SYr+X7SX+UjkNOe5ol6JIGaJJET2aZ5oujtYvgyT3oMwfI7h8Mz4zl/5XOV4HspEyp4sONqmKlN6aFNWD/g/8SHKnz35Kz7OB6eN1Hmn4y55TI9Z3Lf12dPTzPTMFacICegx/eNt7BZbhi4i+pXN6s6ctZZEyVJPselSA9yGyGGZbcNlC2voWzcm8Ldm1BSUrGIZqUkKP+iX7QG5ngbwW0bd0Ts+3fJajSBmqSVY9RovJrNwrOZ2FYLaHxwL7Fs1JRL5r+Th5kTJUk9x6jB0mReRZBG4rOTGT9GRg39I5jS2ejgUWTagmxfUgeTD1SZ+er6d2xGV7Q7Dvtd3kOXX4qd+dWf/jCUbqwkBNmEGPVkfm5fFtAN6wieGKY62j9y9XRWRNRASDS7zXE/scOXX4IYCz5ldrkTJWl1BNssyxixEH78I8ZH69CeCGiKymCiIUDoqUdwG4AwB8Dro5cyK5E8BxEbmQYjxP30GaTOscK4qiKIqiKIqiKIqiKIqiBPMfiuhqvdUHYDkAAAAASUVORK5CYII=" alt="Artavita" style="height:26px;">
+        <img class="logo-img" src="assets/logo-white.png" alt="Artavita" style="height:26px;">
         <p>A free global online gallery helping independent artists get discovered, exhibited, and collected.</p>
         <div class="app-badges">
           <div>App Store</div>
@@ -762,31 +310,31 @@
       </div>
       <div class="footer-col">
         <h5>Discover</h5>
-        <a href="#">Artworks</a>
-        <a href="#">Virtual Exhibitions</a>
-        <a href="#">Artist Contests</a>
-        <a href="#">Featured Artists</a>
-        <a href="#">Featured Galleries</a>
+        <a href="artworks.html">Artworks</a>
+        <a href="index.html#exhibitions">Virtual Exhibitions</a>
+        <a href="contest-entry.html">Artist Contests</a>
+        <a href="artists.html">Featured Artists</a>
+        <a href="artists.html">Featured Galleries</a>
       </div>
       <div class="footer-col">
         <h5>For Artists</h5>
-        <a href="#">Create a portfolio</a>
-        <a href="#">Enter a contest</a>
-        <a href="#">Plans &amp; pricing</a>
-        <a href="#">Artist news</a>
+        <a href="signin.html">Create a portfolio</a>
+        <a href="contest-entry.html">Enter a contest</a>
+        <a href="pricing.html">Plans &amp; pricing</a>
+        <a href="news-post.html">Artist news</a>
       </div>
       <div class="footer-col">
         <h5>For Galleries</h5>
-        <a href="#">Create a gallery profile</a>
-        <a href="#">Exhibit with Artavita</a>
-        <a href="#">Plans &amp; pricing</a>
-        <a href="#">Gallery news</a>
+        <a href="signin.html">Create a gallery profile</a>
+        <a href="about.html">Exhibit with Artavita</a>
+        <a href="pricing.html">Plans &amp; pricing</a>
+        <a href="news-post.html">Gallery news</a>
       </div>
       <div class="footer-col">
         <h5>Support</h5>
-        <a href="#">About &amp; contact</a>
-        <a href="#">FAQ</a>
-        <a href="#">Privacy policy</a>
+        <a href="about.html">About &amp; contact</a>
+        <a href="about.html#faq">FAQ</a>
+        <a href="dashboard.html">Account dashboard (demo)</a>
         <a href="#">Terms &amp; conditions</a>
       </div>
     </div>
@@ -797,79 +345,6 @@
   </div>
 </footer>
 
-<script>
-  // Mobile nav toggle
-  document.querySelector('.hamburger').addEventListener('click', function(){
-    var nav = document.querySelector('.primary-nav');
-    var isOpen = nav.style.display === 'flex';
-    nav.style.display = isOpen ? 'none' : 'flex';
-    nav.style.cssText += isOpen ? '' : 'position:absolute;top:100%;left:0;right:0;background:#fff;flex-direction:column;padding:20px 32px;border-bottom:1px solid #E6E6E6;gap:16px;';
-  });
-
-  // Header shrink on scroll
-  var header = document.getElementById('site-header');
-  window.addEventListener('scroll', function(){
-    header.classList.toggle('scrolled', window.scrollY > 30);
-  }, {passive:true});
-
-  // Scroll reveal
-  var revealEls = document.querySelectorAll('.reveal');
-  if('IntersectionObserver' in window){
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(entry){
-        if(entry.isIntersecting){
-          entry.target.classList.add('in-view');
-          io.unobserve(entry.target);
-        }
-      });
-    }, {threshold:0.15, rootMargin:'0px 0px -40px 0px'});
-    revealEls.forEach(function(el){ io.observe(el); });
-  } else {
-    revealEls.forEach(function(el){ el.classList.add('in-view'); });
-  }
-
-  // Count-up stats
-  var countEls = document.querySelectorAll('[data-count]');
-  function animateCount(el){
-    var target = parseInt(el.getAttribute('data-count'), 10);
-    var suffix = el.getAttribute('data-suffix') || (target >= 1000 ? '+' : '');
-    var display = target >= 1000 ? (target/1000).toFixed(target % 1000 === 0 ? 0 : 1) + 'K' : target;
-    var start = null;
-    var duration = 1400;
-    function step(ts){
-      if(!start) start = ts;
-      var progress = Math.min((ts - start) / duration, 1);
-      var eased = 1 - Math.pow(1 - progress, 3);
-      var current = Math.floor(eased * target);
-      var shown = target >= 1000 ? (current/1000).toFixed(1) + 'K' : current;
-      el.textContent = shown + (el.getAttribute('data-suffix') || (target >= 1000 ? '+' : ''));
-      if(progress < 1){ requestAnimationFrame(step); }
-      else { el.textContent = display + (el.getAttribute('data-suffix') || (target >= 1000 ? '+' : '')); }
-    }
-    requestAnimationFrame(step);
-  }
-  if('IntersectionObserver' in window){
-    var statIo = new IntersectionObserver(function(entries){
-      entries.forEach(function(entry){
-        if(entry.isIntersecting){
-          animateCount(entry.target);
-          statIo.unobserve(entry.target);
-        }
-      });
-    }, {threshold:0.5});
-    countEls.forEach(function(el){ statIo.observe(el); });
-  }
-
-  // Video play
-  var video = document.getElementById('artavita-video');
-  var cover = document.getElementById('video-cover');
-  cover.addEventListener('click', function(){
-    cover.classList.add('hide');
-    video.play();
-  });
-  video.addEventListener('pause', function(){ cover.classList.remove('hide'); });
-  video.addEventListener('ended', function(){ cover.classList.remove('hide'); });
-</script>
-
+<script src="assets/script.js"></script>
 </body>
 </html>
