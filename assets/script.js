@@ -185,3 +185,38 @@ document.querySelectorAll('.toggle-pill').forEach(function(pill){
   });
   render();
 })();
+
+// News grid: build swipe-dot indicators (mobile carousel) and keep them in sync
+document.querySelectorAll('.news-grid').forEach(function(grid){
+  var cards = grid.querySelectorAll('.news-card');
+  if(cards.length < 2) return;
+  var dots = document.createElement('div');
+  dots.className = 'news-dots';
+  cards.forEach(function(card, i){
+    var dot = document.createElement('button');
+    dot.type = 'button';
+    dot.setAttribute('aria-label', 'Show news item ' + (i + 1));
+    if(i === 0) dot.classList.add('active');
+    dot.addEventListener('click', function(){
+      cards[i].scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
+    });
+    dots.appendChild(dot);
+  });
+  grid.insertAdjacentElement('afterend', dots);
+
+  var dotEls = dots.querySelectorAll('button');
+  var syncTimeout;
+  grid.addEventListener('scroll', function(){
+    clearTimeout(syncTimeout);
+    syncTimeout = setTimeout(function(){
+      var gridCenter = grid.scrollLeft + grid.clientWidth / 2;
+      var closest = 0;
+      var closestDist = Infinity;
+      cards.forEach(function(card, i){
+        var dist = Math.abs((card.offsetLeft + card.clientWidth / 2) - gridCenter);
+        if(dist < closestDist){ closestDist = dist; closest = i; }
+      });
+      dotEls.forEach(function(d, i){ d.classList.toggle('active', i === closest); });
+    }, 100);
+  });
+});
